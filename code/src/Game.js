@@ -1,6 +1,8 @@
 function Game(player1, player2) {
   this.player1 = player1;
   this.player2 = player2;
+  this.currentPlayer = null;
+  this.diceRoller = new DiceRoller();
 }
 
 Game.prototype.start = function() {
@@ -17,6 +19,13 @@ Game.prototype.start = function() {
   this._putCheckers(5, this.player2, 12);
   this._putCheckers(3, this.player2, 17);
   this._putCheckers(5, this.player2, 19);
+
+  this.diceRoller.rollUntilNotPair();
+  if (this.diceRoller.firstValue > this.diceRoller.secondValue) {
+    this.currentPlayer = this.player1;
+  } else {
+    this.currentPlayer = this.player2;
+  }
 
   this.isStarted = true;
 }
