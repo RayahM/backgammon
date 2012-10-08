@@ -101,4 +101,42 @@ describe("Game", function() {
       });
     });
   });
+
+  describe("#canMove", function() {
+    var diceRoller;
+
+    beforeEach(function() {
+      diceRoller = new DiceRoller();
+      diceRoller.hasValue = function(value) { return true };
+
+      game.markStarted();
+      game.setCurrenyPlayer(player1);
+      game.putCheckers(2, player1, 8);
+      game.putCheckers(2, player1, 6);
+      game.diceRoller = diceRoller;
+    });
+
+    it("returns true when move is possible", function() {
+      expect(game.canMove(8, 6)).toBe(true);
+    });
+
+    it("return false when source position does not have a checker", function() {
+      expect(game.canMove(9, 7)).toBe(false);
+    });
+
+    it("returns false when dice values are different", function() {
+      diceRoller.hasValue = function(value) { return false };
+      expect(game.canMove(8, 5)).toBe(false);
+    });
+
+    it("returns true when target position has only one opponent checker", function() {
+      game.putCheckers(1, player2, 5);
+      expect(game.canMove(8, 5)).toBe(true);
+    });
+
+    it("returns false when target position has more than one opponent checkers", function() {
+      game.putCheckers(2, player2, 5);
+      expect(game.canMove(8, 5)).toBe(false);
+    });
+  });
 });
