@@ -139,4 +139,84 @@ describe("Game", function() {
       expect(game.canMove(8, 5)).toBe(false);
     });
   });
+
+  describe("#moveChecker", function() {
+    var numberGenerator;
+    var diceRoller;
+
+    beforeEach(function() {
+      numberGenerator = new MockDiceNumberGenerator();
+      diceRoller = new DiceRoller();
+      diceRoller.numberGenerator = numberGenerator;
+
+      game.markStarted();
+      game.setCurrenyPlayer(player1);
+      game.diceRoller = diceRoller;
+    });
+
+    describe("moving checker to already owned point", function() {
+      beforeEach(function() {
+        numberGenerator.addNextPair(2, 5);
+        diceRoller.roll();
+
+        game.putCheckers(2, player1, 8);
+        game.putCheckers(2, player1, 6);
+        game.moveChecker(8, 6);
+      });
+
+      it("removes a checker from source point", function() {
+        expect(game.getPoint(8).checkersCount()).toBe(1);
+      });
+
+      it("adds a checker to the target point", function() {
+        expect(game.getPoint(6).checkersCount()).toBe(3);
+      });
+
+      it("does not change current player", function() {
+        expect(game.currentPlayer).toBe(player1);
+      });
+    });
+
+    describe("moving second checker", function() {
+      beforeEach(function() {
+        numberGenerator.addNextPair(2, 5);
+        diceRoller.roll();
+
+        game.putCheckers(2, player1, 8);
+        game.putCheckers(2, player1, 6);
+        game.moveChecker(8, 6);
+        game.moveChecker(8, 3);
+      });
+
+      it("switches current player", function() {
+        expect(game.currentPlayer).toBe(player2);
+      });
+    });
+
+    describe("hitting opponent checker", function() {
+      beforeEach(function() {
+        numberGenerator.addNextPair(2, 5);
+        diceRoller.roll();
+
+        game.putCheckers(2, player1, 8);
+        game.putCheckers(1, player2, 6);
+
+        game.moveChecker(8, 6);
+      });
+
+      it("removes a checker from source point", function() {
+        expect(game.getPoint(8).checkersCount()).toBe(1);
+      });
+
+      it("removes opponent checker from the target point", function() {
+        var point = game.getPoint(6);
+        var checker = point.firstChecker();
+        expect(checker.getPlayer()).toBe(player1);
+      });
+
+      it("adds a checker to the target point", function() {
+        expect(game.getPoint(6).checkersCount()).toBe(1);
+      });
+    });
+  });
 });

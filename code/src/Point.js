@@ -15,6 +15,16 @@ Point.prototype.removeChecker = function(checker) {
   }
 }
 
+Point.prototype.popChecker = function() {
+  var checker = this.firstChecker();
+  this.removeChecker(checker);
+  return checker;
+}
+
+Point.prototype.firstChecker = function() {
+  return this.checkers[0];
+}
+
 Point.prototype.checkersCount = function() {
   return this.checkers.length;
 }

@@ -1,13 +1,14 @@
 function DiceRoller() {
   this.firstValue = null;
   this.secondValue = null;
+  this.numberGenerator = new DiceNumberGenerator();
 }
 
 DiceRoller.prototype.roll = function() {
   this.values = [];
 
-  this.firstValue = Math.floor((Math.random()*6)+1);
-  this.secondValue = Math.floor((Math.random()*6)+1);
+  this.firstValue = this.numberGenerator.generate();
+  this.secondValue = this.numberGenerator.generate();
 
   this.values.push(this.firstValue);
   this.values.push(this.secondValue);
@@ -39,6 +40,10 @@ DiceRoller.prototype.useValue = function(value) {
   }
 
   this.values.splice(this.indexOfValue(value), 1);
+}
+
+DiceRoller.prototype.valuesLeft = function() {
+  return this.values.length;
 }
 
 DiceRoller.prototype.indexOfValue = function(value) {
