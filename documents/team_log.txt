@@ -1,1 +1,3 @@
 [07.10.2012]: Team has its first meeting during the course project in University of Tartu's library. Assignments were assigned to people.
+[08.10.2012]: Indrek starts with JS basics. Siim-Toomas creates requirements document.
+[09.10.2012]: Siim-Toomas creates storyboard with scenarios.
