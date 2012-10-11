@@ -5,6 +5,9 @@ function Game(player1, player2) {
   this.diceRoller = new DiceRoller();
   this.createPoints();
   this.deadCheckers = [];
+
+  this.player1Graveyard = new Point();
+  this.player2Graveyard = new Point();
 }
 
 Game.prototype.start = function() {
@@ -28,9 +31,34 @@ Game.prototype.start = function() {
   this.markStarted();
 }
 
+Game.prototype.availableMoves = function() {
+  var moves = [];
+
+  for (var i = 0; i < 26; i++) {
+    for (var j = 1; j < 25; j++) {
+      if (this.canMove(i, j)) {
+        moves.push({from: i, to: j});
+      }
+    }
+  }
+
+  return moves;
+}
+
+// sourcePointNr: 1-24 for default points. Use 0 and 25 for
+// dead checkers.
 Game.prototype.canMove = function(sourcePointNr, targetPointNr) {
   var sourcePoint = this.getPoint(sourcePointNr);
   var targetPoint = this.getPoint(targetPointNr);
+
+  if (!this.isCorrectDirection(sourcePointNr, targetPointNr, this.currentPlayer)) {
+    return false;
+  }
+
+  var graveyard = this.currentPlayerGraveyard();
+  if (graveyard.checkersCount() > 0 && sourcePoint != graveyard) {
+    return false;
+  }
 
   if (sourcePoint.playerCheckersCount(this.currentPlayer) == 0) {
     return false;
@@ -45,6 +73,10 @@ Game.prototype.canMove = function(sourcePointNr, targetPointNr) {
 }
 
 Game.prototype.moveChecker = function(sourcePointNr, targetPointNr) {
+  if (this.diceRoller.valuesLeft() == 0) {
+    throw "No moves left";
+  }
+
   if (!this.canMove(sourcePointNr, targetPointNr)) {
     throw "Invalid move";
   }
@@ -69,8 +101,22 @@ Game.prototype.moveChecker = function(sourcePointNr, targetPointNr) {
   }
 }
 
+Game.prototype.currentPlayerGraveyard = function() {
+  if (this.currentPlayer == this.player1) {
+    return this.getPoint(25);
+  } else {
+    return this.getPoint(0);
+  }
+}
+
 Game.prototype.getPoint = function(id) {
-  return this.points[id - 1];
+  if (id == 25) {
+    return this.player1Graveyard;
+  } else if (id == 0) {
+    return this.player2Graveyard;
+  } else {
+    return this.points[id - 1];
+  }
 }
 
 Game.prototype.switchPlayer = function() {
@@ -91,7 +137,7 @@ Game.prototype.setCurrenyPlayer = function(player) {
 
 Game.prototype.putCheckers = function(count, player, position) {
   var checker;
-  var point = this.getPoint(position)
+  var point = this.getPoint(position);
 
   for (i = 0; i < count; i++) {
     checker = new Checker(player);
@@ -103,5 +149,13 @@ Game.prototype.createPoints = function() {
   this.points = [];
   for (var i = 0; i < 24; i++) {
     this.points.push(new Point());
+  }
+}
+
+Game.prototype.isCorrectDirection = function(sourceNr, targetNr, player) {
+  if (player == this.player1) {
+    return sourceNr > targetNr;
+  } else {
+    return targetNr > sourceNr;
   }
 }

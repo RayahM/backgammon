@@ -138,6 +138,27 @@ describe("Game", function() {
       game.putCheckers(2, player2, 5);
       expect(game.canMove(8, 5)).toBe(false);
     });
+
+    it("returns false when trying to move other player checker", function() {
+      game.putCheckers(2, player2, 5);
+      expect(game.canMove(5, 3)).toBe(false);
+    });
+
+    it("returns false when trying to move checker to opposite direction", function() {
+      expect(game.canMove(6, 8)).toBe(false);
+    });
+
+    describe("when there is a checker in no man's land", function() {
+      it("returns true when trying it to move to a free point", function() {
+        game.putCheckers(1, player1, 25);
+        expect(game.canMove(25, 23)).toBe(true);
+      });
+
+      it("returns false when trying to move other checkers", function() {
+        game.putCheckers(1, player1, 25);
+        expect(game.canMove(8, 6)).toBe(false);
+      });
+    });
   });
 
   describe("#moveChecker", function() {
@@ -218,5 +239,33 @@ describe("Game", function() {
         expect(game.getPoint(6).checkersCount()).toBe(1);
       });
     });
+  });
+
+
+  describe("#availableMoves", function() {
+    var numberGenerator;
+    var diceRoller;
+
+    beforeEach(function() {
+      numberGenerator = new MockDiceNumberGenerator();
+      numberGenerator.addNextPair(2, 5);
+
+      diceRoller = new DiceRoller();
+      diceRoller.numberGenerator = numberGenerator;
+      diceRoller.roll();
+
+      game.markStarted();
+      game.setCurrenyPlayer(player1);
+      game.diceRoller = diceRoller;
+      game.putCheckers(2, player1, 8);
+    });
+
+    it("shows possible moves", function() {
+      var moves = game.availableMoves();
+      expect(moves).toEqual([
+        {from: 8, to: 3},
+        {from: 8, to: 6}
+      ]);
+    })
   });
 });
