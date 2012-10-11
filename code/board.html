@@ -4,7 +4,7 @@
     <title>Backgammon</title>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=950px">
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
@@ -52,19 +52,44 @@
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
+    <div id="gui">
+	    <div id="game-board">
+	    	<div class="checker checker-white pointer"></div>
 
-    <div id="game-board">
-    	<div class="checker checker-white pointer"></div>
-
-    	<div class="checker checker-brown pointer" style="left: 100px;"></div>
-    	<div class="dice dice-white" style="top: 100px;">
-    		<div class="number white-one"></div>
-    	</div>
-    	<div class="dice dice-brown" style="top: 100px;left:100px;">
-    		<div class="number brown-three"></div>
-    	</div>
-    	<div class="topdown-checker topdown-white" style="top:38px;right:8px;"></div>
-    	<div class="topdown-checker topdown-brown" style="bottom:36px;right:8px;"></div>
-    </div><!-- end of game board -->
+	    	<div class="checker checker-brown pointer" style="left: 100px;"></div>
+	    	<div class="dice dice-white" style="top: 100px;">
+	    		<div class="number white-one"></div>
+	    	</div>
+	    	<div class="dice dice-brown" style="top: 100px;left:100px;">
+	    		<div class="number brown-three"></div>
+	    	</div>
+	    	<div class="topdown-checker topdown-white" style="top:38px;right:8px;"></div>
+	    	<div class="topdown-checker topdown-brown" style="bottom:36px;right:8px;"></div>
+	    </div><!-- end of game board -->
+	    <div class="small_button pointer" style="right:5px;top:5px;">Menu</div>
+	    <div class="button pointer" style="right:5px;top:189px;">
+	    	<div class="undo">Undo</div>
+	    </div>
+	    <div class="button pointer" style="right:5px;top:303px;">
+	    	<div class="submit">Submit</div>
+	    </div>
+	    <div class="button pointer" style="right:5px;bottom:0px;">
+	    	<div class="send">Send</div>
+	    </div>
+	    <div id="chat">
+	    	<div id="log">
+	    		1 Your turn<br/>
+	    		2 Your turn<br/>
+	    		3 Your turn<br/>
+	    		4 Your turn<br/>
+	    		5 Your turn<br/>
+	    		6 Your turn<br/>
+	    		7 Your turn<br/>
+	    		8 Your turn<br/>
+	    		9 Your turn<br/>
+	    	</div>
+	    	<input type="text" id="chat_input"/>
+	    </div>
+    </div><!-- end of gui -->
   </body>
 </html>
