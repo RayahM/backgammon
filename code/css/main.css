@@ -118,12 +118,12 @@ textarea {
   filter: alpha(opacity = 85);
 }
 
-.c-white {
+.checker-white {
     background-position: 0px 0px;
 }
 
     
-.c-brown {
+.checker-brown {
     background-position: 0px -50px;
 }
 
@@ -135,11 +135,12 @@ textarea {
     min-height: 64px;
     background-image: url("../images/dice.png");
 }
-.d-white {
+
+.dice-white {
     background-position: 0px 0px;
 }
 
-.d-brown {
+.dice-brown {
     background-position: 0px -64px;
 }
 
@@ -150,44 +151,56 @@ textarea {
     min-height: 64px;
     background-image: url("../images/dice.png");
 }
-.w-one {
+
+.white-one {
     background-position: -64px 0px;
 }
-.w-two {
+
+.white-two {
     background-position: -128px 0px;
 }
-.w-three {
+
+.white-three {
     background-position: -192px 0px;
 }
-.w-four {
+
+.white-four {
     background-position: -256px 0px;
 }
-.w-five {
+
+.white-five {
     background-position: -312px 0px;
 }
-.w-six {
+
+.white-six {
     background-position: -384px 0px;
 }
-.b-one {
+
+.brown-one {
     background-position: -64px -64px;
 }
-.b-two {
+
+.brown-two {
     background-position: -128px -64px;
 }
-.b-three {
+
+.brown-three {
     background-position: -192px -64px;
 }
-.b-four {
+
+.brown-four {
     background-position: -256px -64px;
 }
-.b-five {
+
+.brown-five {
     background-position: -312px -64px;
 }
-.b-six {
+
+.brown-six {
     background-position: -384px -64px;
 }
 
-.td-checker {
+.topdown-checker {
     position: absolute;
     width: 43px;
     min-width: 43px;
@@ -195,29 +208,18 @@ textarea {
     min-height: 17px;
     background-image: url("../images/checkers_topdown.png");
 }
-.td-white {
+
+.topdown-white {
     
 }
-.td-brown {
+
+.topdown-brown {
     background-position: 0px -17px;
 }
-
 
 .pointer {
     cursor: pointer;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ==========================================================================
    Helper classes
