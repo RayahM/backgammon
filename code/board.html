@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="lib/modernizr-2.6.1.min.js"></script>
+
+
+	    <!-- include source files here... -->
+	    <script type="text/javascript" src="src/Game.js"></script>
+	    <script type="text/javascript" src="src/Player.js"></script>
+	    <script type="text/javascript" src="src/Point.js"></script>
+	    <script type="text/javascript" src="src/Checker.js"></script>
+	    <script type="text/javascript" src="src/DiceRoller.js"></script>
+	    <script type="text/javascript" src="src/DiceNumberGenerator.js"></script>
+
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div id="game-board">
+        	<div class="checker c-white pointer"></div>
+        	
+        	<div class="checker c-brown pointer" style="left: 100px;"></div>
+        	<div class="dice d-white" style="top: 100px;">
+        		<div class="number w-one"></div>
+        	</div>
+        	<div class="dice d-brown" style="top: 100px;left:100px;">
+        		<div class="number b-three"></div>
+        	</div>
+        	<div class="td-checker td-white" style="top:38px;right:8px;"></div>
+        	<div class="td-checker td-brown" style="bottom:36px;right:8px;"></div>
+        </div><!-- end of game board -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="lib/jquery-1.8.0.min.js"><\/script>')</script>
+        <script src="lib/plugins.js"></script>
+    </body>
+</html>
