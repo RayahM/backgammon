@@ -369,6 +369,7 @@ textarea {
     min-height: 25px;
     background-image: url("../images/checkers.png");
     background-size: 100% 200%;
+    margin-bottom: -6px;
 }
 .brown-small-checker {    
     display: inline-block;
@@ -379,6 +380,7 @@ textarea {
     background-image: url("../images/checkers.png");
     background-size: 100% 200%;
     background-position: 0px 25px;
+    margin-bottom: -6px;
 }
 
 /* ==========================================================================
