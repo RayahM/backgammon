@@ -1,4 +1,5 @@
-function Point() {
+function Point(position) {
+  this.position = position;
   this.checkers = [];
 }
 

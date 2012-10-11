@@ -3,6 +3,10 @@ describe("Game", function() {
       player2,
       game;
 
+  var point = function(nr) {
+    return game.getPoint(nr);
+  }
+
   beforeEach(function() {
     player1 = new Player();
     player2 = new Player();
@@ -117,46 +121,48 @@ describe("Game", function() {
     });
 
     it("returns true when move is possible", function() {
-      expect(game.canMove(8, 6)).toBe(true);
+      expect(game.canMove(point(8), point(6))).toBe(true);
     });
 
     it("return false when source position does not have a checker", function() {
-      expect(game.canMove(9, 7)).toBe(false);
+      expect(game.canMove(point(9), point(7))).toBe(false);
     });
 
     it("returns false when dice values are different", function() {
       diceRoller.hasValue = function(value) { return false };
-      expect(game.canMove(8, 5)).toBe(false);
+      expect(game.canMove(point(8), point(5))).toBe(false);
     });
 
     it("returns true when target position has only one opponent checker", function() {
       game.putCheckers(1, player2, 5);
-      expect(game.canMove(8, 5)).toBe(true);
+      expect(game.canMove(point(8), point(5))).toBe(true);
     });
 
     it("returns false when target position has more than one opponent checkers", function() {
       game.putCheckers(2, player2, 5);
-      expect(game.canMove(8, 5)).toBe(false);
+      expect(game.canMove(point(8), point(5))).toBe(false);
     });
 
     it("returns false when trying to move other player checker", function() {
       game.putCheckers(2, player2, 5);
-      expect(game.canMove(5, 3)).toBe(false);
+      expect(game.canMove(point(5), point(3))).toBe(false);
     });
 
     it("returns false when trying to move checker to opposite direction", function() {
-      expect(game.canMove(6, 8)).toBe(false);
+      expect(game.canMove(point(6), point(8))).toBe(false);
     });
 
     describe("when there is a checker in no man's land", function() {
       it("returns true when trying it to move to a free point", function() {
-        game.putCheckers(1, player1, 25);
-        expect(game.canMove(25, 23)).toBe(true);
+        var graveyard = game.player1Graveyard;
+        graveyard.addChecker(new Checker(game.player1));
+        expect(game.canMove(graveyard, point(23))).toBe(true);
       });
 
       it("returns false when trying to move other checkers", function() {
-        game.putCheckers(1, player1, 25);
-        expect(game.canMove(8, 6)).toBe(false);
+        var graveyard = game.player1Graveyard;
+        graveyard.addChecker(new Checker(game.player1));
+        expect(game.canMove(point(8), point(6))).toBe(false);
       });
     });
   });
@@ -182,15 +188,15 @@ describe("Game", function() {
 
         game.putCheckers(2, player1, 8);
         game.putCheckers(2, player1, 6);
-        game.moveChecker(8, 6);
+        game.moveChecker(point(8), point(6));
       });
 
       it("removes a checker from source point", function() {
-        expect(game.getPoint(8).checkersCount()).toBe(1);
+        expect(point(8).checkersCount()).toBe(1);
       });
 
       it("adds a checker to the target point", function() {
-        expect(game.getPoint(6).checkersCount()).toBe(3);
+        expect(point(6).checkersCount()).toBe(3);
       });
 
       it("does not change current player", function() {
@@ -205,8 +211,8 @@ describe("Game", function() {
 
         game.putCheckers(2, player1, 8);
         game.putCheckers(2, player1, 6);
-        game.moveChecker(8, 6);
-        game.moveChecker(8, 3);
+        game.moveChecker(point(8), point(6));
+        game.moveChecker(point(8), point(3));
       });
 
       it("switches current player", function() {
@@ -222,11 +228,11 @@ describe("Game", function() {
         game.putCheckers(2, player1, 8);
         game.putCheckers(1, player2, 6);
 
-        game.moveChecker(8, 6);
+        game.moveChecker(point(8), point(6));
       });
 
       it("removes a checker from source point", function() {
-        expect(game.getPoint(8).checkersCount()).toBe(1);
+        expect(point(8).checkersCount()).toBe(1);
       });
 
       it("removes opponent checker from the target point", function() {
@@ -240,7 +246,6 @@ describe("Game", function() {
       });
     });
   });
-
 
   describe("#availableMoves", function() {
     var numberGenerator;
@@ -263,9 +268,20 @@ describe("Game", function() {
     it("shows possible moves", function() {
       var moves = game.availableMoves();
       expect(moves).toEqual([
-        {from: 8, to: 3},
-        {from: 8, to: 6}
+        {from: point(8), to: point(3)},
+        {from: point(8), to: point(6)}
       ]);
-    })
+    });
+
+    it("shows only graveyard moves when a checker in a graveyard", function() {
+      var graveyard = game.player1Graveyard;
+      graveyard.addChecker(new Checker(game.player1));
+
+      var moves = game.availableMoves();
+      expect(moves).toEqual([
+        {from: graveyard, to: point(20)},
+        {from: graveyard, to: point(23)}
+      ]);
+    });
   });
 });

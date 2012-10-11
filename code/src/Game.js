@@ -6,8 +6,10 @@ function Game(player1, player2) {
   this.createPoints();
   this.deadCheckers = [];
 
-  this.player1Graveyard = new Point();
-  this.player2Graveyard = new Point();
+  this.player1Graveyard = new Point(25);
+  this.player2Graveyard = new Point(0);
+  this.player1Home = new Point(0);
+  this.player2Home = new Point(25);
 }
 
 Game.prototype.start = function() {
@@ -34,24 +36,29 @@ Game.prototype.start = function() {
 Game.prototype.availableMoves = function() {
   var moves = [];
 
-  for (var i = 0; i < 26; i++) {
+  var graveyard = this.currentPlayerGraveyard();
+
+  for (var i = 1; i < 25; i++) {
+    var pointX = this.getPoint(i);
+
     for (var j = 1; j < 25; j++) {
-      if (this.canMove(i, j)) {
-        moves.push({from: i, to: j});
+      var pointY = this.getPoint(j);
+
+      if (this.canMove(pointX, pointY)) {
+        moves.push({from: pointX, to: pointY});
       }
+    }
+
+    if (this.canMove(graveyard, pointX)) {
+      moves.push({from: graveyard, to: pointX});
     }
   }
 
   return moves;
 }
 
-// sourcePointNr: 1-24 for default points. Use 0 and 25 for
-// dead checkers.
-Game.prototype.canMove = function(sourcePointNr, targetPointNr) {
-  var sourcePoint = this.getPoint(sourcePointNr);
-  var targetPoint = this.getPoint(targetPointNr);
-
-  if (!this.isCorrectDirection(sourcePointNr, targetPointNr, this.currentPlayer)) {
+Game.prototype.canMove = function(sourcePoint, targetPoint) {
+  if (!this.isCorrectDirection(sourcePoint, targetPoint, this.currentPlayer)) {
     return false;
   }
 
@@ -68,23 +75,20 @@ Game.prototype.canMove = function(sourcePointNr, targetPointNr) {
     return false;
   }
 
-  var distance = Math.abs(targetPointNr - sourcePointNr);
+  var distance = this.getDistanceBetweenPoints(sourcePoint, targetPoint);
   return this.diceRoller.hasValue(distance);
 }
 
-Game.prototype.moveChecker = function(sourcePointNr, targetPointNr) {
+Game.prototype.moveChecker = function(sourcePoint, targetPoint) {
   if (this.diceRoller.valuesLeft() == 0) {
     throw "No moves left";
   }
 
-  if (!this.canMove(sourcePointNr, targetPointNr)) {
+  if (!this.canMove(sourcePoint, targetPoint)) {
     throw "Invalid move";
   }
 
-  var sourcePoint = this.getPoint(sourcePointNr);
   var checker = sourcePoint.popChecker();
-
-  var targetPoint = this.getPoint(targetPointNr);
   targetPoint.addChecker(checker);
 
   var checker = targetPoint.firstChecker();
@@ -93,7 +97,7 @@ Game.prototype.moveChecker = function(sourcePointNr, targetPointNr) {
     this.deadCheckers.push(checker);
   }
 
-  var distance = Math.abs(targetPointNr - sourcePointNr);
+  var distance = this.getDistanceBetweenPoints(sourcePoint, targetPoint);
 
   this.diceRoller.useValue(distance);
   if (this.diceRoller.valuesLeft() == 0) {
@@ -101,22 +105,28 @@ Game.prototype.moveChecker = function(sourcePointNr, targetPointNr) {
   }
 }
 
+Game.prototype.getDistanceBetweenPoints = function(source, target) {
+  return Math.abs(source.position - target.position);
+}
+
 Game.prototype.currentPlayerGraveyard = function() {
   if (this.currentPlayer == this.player1) {
-    return this.getPoint(25);
+    return this.player1Graveyard;
   } else {
-    return this.getPoint(0);
+    return this.player2Graveyard;
+  }
+}
+
+Game.prototype.currentPlayerHome = function() {
+  if (this.currentPlayer == this.player1) {
+    return this.player1Home;
+  } else {
+    return this.player2Home;
   }
 }
 
 Game.prototype.getPoint = function(id) {
-  if (id == 25) {
-    return this.player1Graveyard;
-  } else if (id == 0) {
-    return this.player2Graveyard;
-  } else {
-    return this.points[id - 1];
-  }
+  return this.points[id - 1];
 }
 
 Game.prototype.switchPlayer = function() {
@@ -148,14 +158,14 @@ Game.prototype.putCheckers = function(count, player, position) {
 Game.prototype.createPoints = function() {
   this.points = [];
   for (var i = 0; i < 24; i++) {
-    this.points.push(new Point());
+    this.points.push(new Point(i + 1));
   }
 }
 
-Game.prototype.isCorrectDirection = function(sourceNr, targetNr, player) {
+Game.prototype.isCorrectDirection = function(source, target, player) {
   if (player == this.player1) {
-    return sourceNr > targetNr;
+    return source.position > target.position;
   } else {
-    return targetNr > sourceNr;
+    return target.position > source.position;
   }
 }
