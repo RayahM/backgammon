@@ -100,6 +100,9 @@ Game.prototype.moveChecker = function(sourcePoint, targetPoint) {
   var distance = this.getDistanceBetweenPoints(sourcePoint, targetPoint);
 
   this.diceRoller.useValue(distance);
+}
+
+Game.prototype.finishTurn = function() {
   if (this.diceRoller.valuesLeft() == 0) {
     this.switchPlayer();
   }

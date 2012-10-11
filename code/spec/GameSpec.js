@@ -198,26 +198,6 @@ describe("Game", function() {
       it("adds a checker to the target point", function() {
         expect(point(6).checkersCount()).toBe(3);
       });
-
-      it("does not change current player", function() {
-        expect(game.currentPlayer).toBe(player1);
-      });
-    });
-
-    describe("moving second checker", function() {
-      beforeEach(function() {
-        numberGenerator.addNextPair(2, 5);
-        diceRoller.roll();
-
-        game.putCheckers(2, player1, 8);
-        game.putCheckers(2, player1, 6);
-        game.moveChecker(point(8), point(6));
-        game.moveChecker(point(8), point(3));
-      });
-
-      it("switches current player", function() {
-        expect(game.currentPlayer).toBe(player2);
-      });
     });
 
     describe("hitting opponent checker", function() {
@@ -282,6 +262,30 @@ describe("Game", function() {
         {from: graveyard, to: point(20)},
         {from: graveyard, to: point(23)}
       ]);
+    });
+  });
+
+  describe("#finishTurn", function() {
+    var diceRoller;
+
+    beforeEach(function() {
+      diceRoller = game.diceRoller;
+
+      game.setCurrenyPlayer(player1);
+    });
+
+    it("changes player when no moves left", function() {
+      diceRoller.valuesLeft = function() { return false; }
+      game.finishTurn();
+
+      expect(game.currentPlayer).toBe(player2);
+    });
+
+    it("does not change player when any moves left", function() {
+      diceRoller.valuesLeft = function() { return true; }
+      game.finishTurn();
+
+      expect(game.currentPlayer).toBe(player1);
     });
   });
 });
