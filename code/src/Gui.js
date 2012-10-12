@@ -146,7 +146,7 @@ function animateDice(dice, numbers, value) {
     });
     count++;
   }
-
+  
   showRandomNr();
 }
 
