@@ -84,8 +84,8 @@ function startNewGame() {
 
   GAME.start();
 
-  showBrownDice(GAME.diceRoller.firstValue);
-  showWhiteDice(GAME.diceRoller.secondValue);
+  showBrownDice(1, GAME.diceRoller.firstValue);
+  showWhiteDice(1, GAME.diceRoller.secondValue);
 
   redrawCheckers();
 }
@@ -144,16 +144,18 @@ function getPointUsingDomId(domId) {
   return GAME.getPoint(id);
 }
 
+// nr - dice number 1 to 2
 // value - 1 to 6
-function showWhiteDice(value) {
-  var dice = $("#whiteDiceNr1");
+function showWhiteDice(nr, value) {
+  var dice = $("#whiteDiceNr" + nr);
   dice.parent().show();
   animateDice(dice, whiteDiceNrs, value);
 }
 
+// nr - dice number 1 to 2
 // value - 1 to 6
-function showBrownDice(value) {
-  var dice = $("#brownDiceNr1");
+function showBrownDice(nr, value) {
+  var dice = $("#brownDiceNr" + nr);
   dice.parent().show();
   animateDice(dice, brownDiceNrs, value);
 }
@@ -172,9 +174,9 @@ function animateDice(dice, numbers, value) {
     var randomNr = nrGenerator.generate() - 1;
     dice.removeClass(lastClass);
     dice.addClass(numbers[randomNr])
+    lastClass = numbers[randomNr];
 
     if (count <= 8) {
-      lastClass = numbers[randomNr];
       setTimeout(function() {
         showRandomNr();
       }, 80);
@@ -212,16 +214,16 @@ function getCheckerPosition(pointNr, checkerNr) {
     }
     else {
      var top = checkerNr*40;
-    } 
+    }
   }
   else { // bottom
-    if(checkerNr > 5){ // overlaps 
+    if(checkerNr > 5){ // overlaps
       var top = (checkerNr-6)*40;
     }
     else {
      var top = 20+4*40-checkerNr*40;
     }
-    
+
   }
   return {
     top:  top + "px",
