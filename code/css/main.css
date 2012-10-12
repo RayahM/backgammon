@@ -154,7 +154,7 @@ textarea {
 }
 
 .checker.selected {
-  background-color: red;
+  background-image: url("../images/checkers_active.png");
 }
 
 .checker:hover {
