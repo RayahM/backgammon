@@ -169,6 +169,11 @@ Game.prototype.putCheckers = function(count, player, position) {
   }
 }
 
+Game.prototype.getCheckersCountOnPoint = function(position){
+  var point = this.getPoint(position);
+  return point.checkersCount();
+}
+
 Game.prototype.createPoints = function() {
   this.points = [];
   for (var i = 0; i < 24; i++) {

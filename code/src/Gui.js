@@ -26,9 +26,9 @@ $(function() {
       show : "blind",
       hide : "explode",
       buttons : {
-        "Start new game" : function() {
+        "Start a new game" : function() {
           $(this).dialog("close");
-          showStartUpWindow();
+          window.location.reload();
         },
         Resume : function() {
           $(this).dialog("close");
@@ -62,7 +62,7 @@ $(function() {
 
 function showStartUpWindow() {
   $("#dialog-modal").dialog({
-    height : 250,
+    height : 'auto',
     modal : true,
     hide : "explode",
     buttons : {
@@ -99,13 +99,17 @@ function startNewGame() {
 
       console.log(checker);
       if (checker.getPlayer() == PLAYER1) {
-        var element = generateWhiteChecker();
-      } else {
         var element = generateBrownChecker();
+      } else {
+        var element = generateWhiteChecker();
       }
 
       console.log(element);
-      $("#point" + i).append(element);
+      var position = getCheckerPosition(i);
+      $("#game-board").append(element);
+
+      element[0].style.top = position.top;
+      element[0].style.left = position.left;
     }
   }
 }
@@ -159,9 +163,18 @@ function consoleAddMessage(message) {
 }
 
 function generateBrownChecker() {
-  return $("<div>").addClass("brown-small-checker")
+  return $("<div>").addClass("checker checker-brown pointer");
 }
 
 function generateWhiteChecker() {
-  return $("<div>").addClass("white-small-checker")
+  return $("<div>").addClass("checker checker-white pointer");
+}
+
+function getCheckerPosition(point){
+  var count = GAME.getCheckersCountOnPoint(point);
+  var position = $("#point" + point).position();
+  return {
+    top:  position.top + count*50 + "px",
+    left: position.left + "px"
+  };
 }
