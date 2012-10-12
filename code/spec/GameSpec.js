@@ -316,6 +316,7 @@ describe("Game", function() {
 
     it("does not change player when any moves left", function() {
       diceRoller.valuesLeft = function() { return true; }
+      game.availableMoves = function() { return ["stub"]; }
       game.finishTurn();
 
       expect(game.currentPlayer).toBe(player1);

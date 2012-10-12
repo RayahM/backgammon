@@ -127,7 +127,7 @@ Game.prototype.finishTurn = function() {
     alert(this.player2.name + " WON");
   }
 
-  if (this.diceRoller.valuesLeft() == 0) {
+  if (this.diceRoller.valuesLeft() == 0 || this.availableMoves().length == 0) {
     this.switchPlayer();
     this.diceRoller.roll();
   }
