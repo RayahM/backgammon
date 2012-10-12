@@ -133,24 +133,28 @@ function showBrownDice(value) {
 // value - final value 1 to 6
 function animateDice(dice, numbers, value) {
   dice.removeClass().addClass("dice");
-
+  
+  var currentNr = null;
   var lastClass = null;
   var count = 0;
   var nrGenerator = new DiceNumberGenerator();
+  
 
   var showRandomNr = function() {
     var randomNr = nrGenerator.generate() - 1;
-    dice.switchClass(lastClass, numbers[randomNr], 80, function() {
-      if (count <= 8) {
-        lastClass = numbers[randomNr];
-        showRandomNr();
-      } else {
-        dice.switchClass(lastClass, numbers[value - 1]);
-      }
-    });
+    if(lastClass != numbers[randomNr]){
+	    dice.switchClass(lastClass, numbers[randomNr], 80, function() {
+	      if (count <= 8) {
+	        lastClass = numbers[randomNr];
+	        showRandomNr();
+	      } else {
+	        dice.switchClass(lastClass, numbers[value - 1]);
+	      }
+	    });
+  	}
     count++;
   }
-
+  
   showRandomNr();
 }
 
