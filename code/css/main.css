@@ -142,6 +142,10 @@ textarea {
     background-image: url("../images/checkers.png");
 }
 
+.checker.selected {
+  background-color: red;
+}
+
 .checker:hover {
   opacity: 0.85;
   filter: alpha(opacity = 85);

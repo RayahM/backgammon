@@ -107,12 +107,17 @@ function redrawCheckers() {
       }
 
       var position = getCheckerPosition(i, j);
-      $("#game-board").append(element);
+      $("#point" + i).append(element);
 
       element[0].style.top = position.top;
       element[0].style.left = position.left;
     }
   }
+
+  $(".checker").on("click", function() {
+    $(".checker").removeClass("selected");
+    $(this).addClass("selected");
+  });
 }
 
 // value - 1 to 6
