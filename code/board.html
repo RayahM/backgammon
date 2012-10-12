@@ -8,7 +8,9 @@
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
     <script src="lib/modernizr-2.6.1.min.js"></script>
     <script src="lib/plugins.js"></script>
 
@@ -19,11 +21,12 @@
 	  <script type="text/javascript" src="src/Checker.js"></script>
 	  <script type="text/javascript" src="src/DiceRoller.js"></script>
 	  <script type="text/javascript" src="src/DiceNumberGenerator.js"></script>
+	  <script type="text/javascript" src="src/Gui.js"></script>
 
     <script type="text/javascript">
       // Game example
-      var player1 = new Player();
-      var player2 = new Player();
+      var player1 = new Player("player1");
+      var player2 = new Player("player2");
 
       var game = new Game(player1, player2);
       game.start();
@@ -73,15 +76,15 @@
 	    		Margus <span class="brown-small-checker"></span> <span>300</span>
 	    	</div>
 	    </div><!-- end of game board -->
-	    <div class="small_button pointer" style="right:5px;top:5px;">Menu</div>
+	    <div id="menu" class="small_button pointer" style="right:5px;top:5px;">Menu</div>
 	    <div class="button pointer" style="right:5px;top:189px;">
-	    	<div class="undo">Undo</div>
+	    	<div id="undo" class="undo">Undo</div>
 	    </div>
 	    <div class="button pointer" style="right:5px;top:303px;">
-	    	<div class="submit">Submit</div>
+	    	<div id="submit" class="submit">Submit</div>
 	    </div>
 	    <div class="button pointer" style="right:5px;bottom:0px;">
-	    	<div class="send">Send</div>
+	    	<div id="send" class="send">Send</div>
 	    </div>
 	    <div id="chat">
 	    	<div id="log">
@@ -98,5 +101,9 @@
 	    	<input type="text" id="chat_input"/>
 	    </div>
     </div><!-- end of gui -->
+    
+    <div id="menuDialog" title="Menu dialog">
+    	
+	</div>
   </body>
 </html>

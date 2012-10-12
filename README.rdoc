@@ -11,3 +11,4 @@ Open code/SpecRunner.html in a web browser.
 
 
 == Documentation
+Documents are under folder "Documents".
