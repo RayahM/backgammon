@@ -253,6 +253,10 @@ describe("Game", function() {
       it("adds a checker to the target point", function() {
         expect(game.getPoint(6).checkersCount()).toBe(1);
       });
+
+      it("adds enemy checker to graveyard", function() {
+        expect(game.player2Graveyard.checkersCount()).toBe(1)
+      });
     });
   });
 

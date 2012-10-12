@@ -4,7 +4,6 @@ function Game(player1, player2) {
   this.currentPlayer = null;
   this.diceRoller = new DiceRoller();
   this.createPoints();
-  this.deadCheckers = [];
   this.history = [];
 
   this.player1Graveyard = new Point(25);
@@ -106,7 +105,7 @@ Game.prototype.moveChecker = function(sourcePoint, targetPoint) {
   var checker = targetPoint.firstChecker();
   if (checker.getPlayer() != this.currentPlayer) {
     targetPoint.removeChecker(checker);
-    this.deadCheckers.push(checker);
+    this.oppositePlayerGraveyard().addChecker(checker);
   }
 
   var distance = this.getDistanceBetweenPoints(sourcePoint, targetPoint);
@@ -233,5 +232,13 @@ Game.prototype.hasCheckersOutsideHomeArea = function(player) {
     if (this.getPoint(i).playerCheckersCount(player) > 0) {
       return true;
     }
+  }
+}
+
+Game.prototype.oppositePlayerGraveyard = function() {
+  if (this.currentPlayer == this.player1) {
+    return this.player2Graveyard;
+  } else {
+    return this.player1Graveyard;
   }
 }
