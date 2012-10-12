@@ -115,41 +115,46 @@ describe("Game", function() {
 
       game.markStarted();
       game.setCurrenyPlayer(player1);
-      game.putCheckers(2, player1, 8);
-      game.putCheckers(2, player1, 6);
       game.diceRoller = diceRoller;
     });
 
-    it("returns true when move is possible", function() {
-      expect(game.canMove(point(8), point(6))).toBe(true);
-    });
+    describe("in general", function() {
+      beforeEach(function() {
+        game.putCheckers(2, player1, 8);
+        game.putCheckers(2, player1, 6);
+      });
 
-    it("return false when source position does not have a checker", function() {
-      expect(game.canMove(point(9), point(7))).toBe(false);
-    });
+      it("returns true when move is possible", function() {
+        expect(game.canMove(point(8), point(6))).toBe(true);
+      });
 
-    it("returns false when dice values are different", function() {
-      diceRoller.hasValue = function(value) { return false };
-      expect(game.canMove(point(8), point(5))).toBe(false);
-    });
+      it("return false when source position does not have a checker", function() {
+        expect(game.canMove(point(9), point(7))).toBe(false);
+      });
 
-    it("returns true when target position has only one opponent checker", function() {
-      game.putCheckers(1, player2, 5);
-      expect(game.canMove(point(8), point(5))).toBe(true);
-    });
+      it("returns false when dice values are different", function() {
+        diceRoller.hasValue = function(value) { return false };
+        expect(game.canMove(point(8), point(5))).toBe(false);
+      });
 
-    it("returns false when target position has more than one opponent checkers", function() {
-      game.putCheckers(2, player2, 5);
-      expect(game.canMove(point(8), point(5))).toBe(false);
-    });
+      it("returns true when target position has only one opponent checker", function() {
+        game.putCheckers(1, player2, 5);
+        expect(game.canMove(point(8), point(5))).toBe(true);
+      });
 
-    it("returns false when trying to move other player checker", function() {
-      game.putCheckers(2, player2, 5);
-      expect(game.canMove(point(5), point(3))).toBe(false);
-    });
+      it("returns false when target position has more than one opponent checkers", function() {
+        game.putCheckers(2, player2, 5);
+        expect(game.canMove(point(8), point(5))).toBe(false);
+      });
 
-    it("returns false when trying to move checker to opposite direction", function() {
-      expect(game.canMove(point(6), point(8))).toBe(false);
+      it("returns false when trying to move other player checker", function() {
+        game.putCheckers(2, player2, 5);
+        expect(game.canMove(point(5), point(3))).toBe(false);
+      });
+
+      it("returns false when trying to move checker to opposite direction", function() {
+        expect(game.canMove(point(6), point(8))).toBe(false);
+      });
     });
 
     describe("when there is a checker in no man's land", function() {
@@ -163,6 +168,30 @@ describe("Game", function() {
         var graveyard = game.player1Graveyard;
         graveyard.addChecker(new Checker(game.player1));
         expect(game.canMove(point(8), point(6))).toBe(false);
+      });
+    });
+
+    describe("when trying to move to home", function() {
+      var home;
+      beforeEach(function() {
+        home = game.player1Home;
+      });
+
+      it("returns true", function() {
+        game.putCheckers(2, player1, 4);
+        expect(game.canMove(point(4), home)).toBe(true);
+      });
+
+      it("returns true when dice value is larger than highest checker", function() {
+        diceRoller.hasValue = function(value) { return (value == 5) };
+        game.putCheckers(2, player1, 4);
+        expect(game.canMove(point(4), home)).toBe(true);
+      });
+
+      it("returns false when some checkers are out", function() {
+        game.putCheckers(2, player1, 10);
+        game.putCheckers(2, player1, 4);
+        expect(game.canMove(point(4), home)).toBe(false);
       });
     });
   });

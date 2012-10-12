@@ -75,8 +75,19 @@ Game.prototype.canMove = function(sourcePoint, targetPoint) {
     return false;
   }
 
+  if (targetPoint == this.currentPlayerHome()) {
+    if (this.hasCheckersOutsideHomeArea(this.currentPlayer)) {
+      return false;
+    }
+  }
+
   var distance = this.getDistanceBetweenPoints(sourcePoint, targetPoint);
-  return this.diceRoller.hasValue(distance);
+
+  if (this.hasCheckersOutsideHomeArea(this.currentPlayer)) {
+    return this.diceRoller.hasValue(distance);
+  } else {
+    return true;
+  }
 }
 
 Game.prototype.moveChecker = function(sourcePoint, targetPoint) {
@@ -170,5 +181,21 @@ Game.prototype.isCorrectDirection = function(source, target, player) {
     return source.position > target.position;
   } else {
     return target.position > source.position;
+  }
+}
+
+Game.prototype.hasCheckersOutsideHomeArea = function(player) {
+  var from = 7;
+  var to = 24;
+
+  if (player != this.player1) {
+    from = 18;
+    to = 1;
+  }
+
+  for (var i = from; i < to; i++) {
+    if (this.getPoint(i).playerCheckersCount(player) > 0) {
+      return true;
+    }
   }
 }
