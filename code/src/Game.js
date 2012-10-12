@@ -122,6 +122,7 @@ Game.prototype.moveChecker = function(sourcePoint, targetPoint) {
 Game.prototype.finishTurn = function() {
   if (this.diceRoller.valuesLeft() == 0) {
     this.switchPlayer();
+    this.diceRoller.roll();
   }
 }
 
