@@ -217,8 +217,8 @@ Game.prototype.hasCheckersOutsideHomeArea = function(player) {
   var to = 24;
 
   if (player != this.player1) {
-    from = 18;
-    to = 1;
+    from = 1;
+    to = 18;
   }
 
   for (var i = from; i < to; i++) {
