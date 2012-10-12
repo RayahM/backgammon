@@ -4,7 +4,7 @@
 Core is developed using HTML5/CSS/JavaScript. See code directory.
 
 === Starting the game
-Open code/index.html in any of the modern web browsers.
+Open code/board.html in any of the modern web browsers.
 
 === Running tests
 Open code/SpecRunner.html in a web browser.
