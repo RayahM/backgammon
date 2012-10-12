@@ -60,10 +60,10 @@
 	    	<div class="checker checker-white pointer"></div>
 
 	    	<div class="checker checker-brown pointer" style="left: 100px;"></div>
-	    	<div class="dice dice-white" style="top: 100px;">
+	    	<div class="dice dice-white" style="top: 267px;left:300px;">
 	    		<div id="whiteDiceNr" class="number white-one"></div>
 	    	</div>
-	    	<div class="dice dice-brown" style="top: 100px;left:100px;">
+	    	<div class="dice dice-brown" style="top: 267px;left:480px;">
 	    		<div id="brownDiceNr" class="number brown-three"></div>
 	    	</div>
 	    	<div class="topdown-checker topdown-white" style="top:38px;right:8px;"></div>
@@ -88,22 +88,26 @@
 	    </div>
 	    <div id="chat">
 	    	<div id="log">
-	    		1 Your turn<br/>
-	    		2 Your turn<br/>
-	    		3 Your turn<br/>
-	    		4 Your turn<br/>
-	    		5 Your turn<br/>
-	    		6 Your turn<br/>
-	    		7 Your turn<br/>
-	    		8 Your turn<br/>
-	    		9 Your turn<br/>
 	    	</div>
 	    	<input type="text" id="chat_input"/>
 	    </div>
     </div><!-- end of gui -->
     
-    <div id="menuDialog" title="Menu dialog">
-    	
+    <div id="menuDialog" title="Menu dialog"></div>
+    
+    <div id="dialog-modal" title="Backgammon" style="display:none;">
+		<form>
+	    	<fieldset>
+		        <label for="player1">Player 1</label>
+		        <br/>
+		        <input type="text" name="player1" id="player1Input" value="Player1" class="text ui-widget-content ui-corner-all" />
+		        <br/>
+		        <label for="player2">Player 2</label>
+		        <br/>
+		        <input type="text" name="player2" id="player2Input" value="Player2" class="text ui-widget-content ui-corner-all" />
+		        <br/>
+	    	</fieldset>
+    	</form>
 	</div>
   </body>
 </html>

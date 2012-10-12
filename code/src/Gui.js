@@ -6,6 +6,17 @@ var currentBrownNr = brownDiceNrs[2];
 
 $(function(){
 	
+	startUpWindow();
+	
+	$('#player1Input').click(function() {
+		$('#player1Input').val("");
+	});
+	
+	$('#player2Input').click(function() {
+		$('#player2Input').val("");
+	});
+	
+	
 	$('#menu').click(function() {		
 		$('#menuDialog').dialog({
 			autoOpen: false,
@@ -14,12 +25,9 @@ $(function(){
             buttons: {
                 "Start new game": function() {
                     $( this ).dialog( "close" );
-                    
-                    //todo start new game
-                    
-                    
+                    startUpWindow(); 
                 },
-                Cancel: function() {
+                Resume: function() {
                     $( this ).dialog( "close" );
                 }
             }
@@ -51,15 +59,44 @@ $(function(){
 		
 		  //White dice clicked
 		  rollDice();
-		 });
+	});
 	
-	 $('#brownDiceNr').click(function() {
+	$('#brownDiceNr').click(function() {
 		 
-	  //Brown dice clicked
-	  rollDice();
-	 });
+	    //Brown dice clicked
+		rollDice();
+	});
 });
 
+function startUpWindow(){
+	$( "#dialog-modal" ).dialog({
+        height: 250,
+        modal: true,
+        hide: "explode",
+        buttons: {
+            "Start new game": function() {
+                $( this ).dialog( "close" );
+                if($('#player1Input').val() != ""){
+                	var player1 = $('#player1Input').val();
+                }else{
+                	var player1 = "Player1";
+                }
+                if($('#player1Input').val() != ""){
+                	var player2 = $('#player2Input').val();
+                }else{
+                	var player2 = "Player2";
+                }
+                alert(player1+":"+player2);
+                
+                
+                
+                //todo start new game; call out the method
+                               
+                
+            }
+        }
+    });
+}
 
 function consoleAddMessage(message){
 	$('#log').append(message+"<br />");
