@@ -114,7 +114,36 @@ function redrawCheckers() {
     }
   }
 
-  $(".checker").draggable({revert: "invalid"});
+  $(".checker").draggable({
+    revert: "invalid",
+    start: function() {
+      // siia funktsiooni sisu      
+      var source = $(this).parent();
+      var sourcePoint = getPointUsingDomId(source.attr("id"));
+      var moves = GAME.availableMoves();
+      for (var m in moves) {
+        var move = moves[m];
+        if (move.from == sourcePoint) {
+          if (GAME.currentPlayer == PLAYER1) {
+            var element = generateBrownChecker();
+          } else {
+            var element = generateWhiteChecker();
+          }
+          element.addClass('temp');
+          var position = getCheckerPosition(move.to.position, GAME.getCheckersCountOnPoint(move.to.position));
+          $("#point" + move.to.position).append(element);
+
+          element[0].style.top = position.top;
+          element[0].style.left = position.left;
+          element[0].style.opacity = '0.3';
+        }
+      }
+    },
+    stop: function() {
+      $(".temp").remove();
+    }
+  });
+
   $(".point").droppable({
     drop: function(event, ui) {
       var source = $(ui.draggable).parent();

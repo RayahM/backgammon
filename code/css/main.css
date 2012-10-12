@@ -139,6 +139,11 @@ textarea {
   width: 50px;
 }
 
+.temp {
+    opacity: 0.3;
+    filter: alpha(opacity = 85);
+}
+
 .checker {
     position: absolute;
     width: 50px;
