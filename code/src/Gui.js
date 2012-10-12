@@ -178,9 +178,10 @@ function generateWhiteChecker() {
 
 function getCheckerPosition(point){
   var count = GAME.getCheckersCountOnPoint(point);
-  var position = $("#point" + point).position();
+  var top = parseInt($("#point" + point)[0].style.top);
+  var left = parseInt($("#point" + point)[0].style.left);
   return {
-    top:  position.top + count*50 + "px",
-    left: position.left + "px"
+    top:  top + count*50 + "px",
+    left: left + "px"
   };
 }
