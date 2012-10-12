@@ -189,9 +189,25 @@ function generateWhiteChecker() {
 
 function getCheckerPosition(pointNr, checkerNr) {
   var count = GAME.getCheckersCountOnPoint(pointNr);
-
+  if(pointNr > 12){ // top
+    if(checkerNr > 5){ // overlaps
+      var top = 5*40-(checkerNr-5)*40+20;
+    }
+    else {
+     var top = checkerNr*40;
+    } 
+  }
+  else { // bottom
+    if(checkerNr > 5){ // overlaps 
+      var top = (checkerNr-6)*40;
+    }
+    else {
+     var top = 20+4*40-checkerNr*40;
+    }
+    
+  }
   return {
-    top:  checkerNr*50 + "px",
+    top:  top + "px",
     left: "0px"
   };
 }
