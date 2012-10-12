@@ -160,14 +160,25 @@ function redrawCheckers() {
     element[0].style.left = 0;
   }
 
-  //var player1HomeEl = $("#point-player1-home");
-  //var checkers = GAME.player1Home.checkers;
-  //for (var i = 0; i < checkers.count; i++) {
-  //  var element = generateBrownChecker();
-  //  player1HomeEl.append(element);
-  //  element[0].style.top = "10px";
-  //  element[0].style.left = 0;
-  //}
+  var player1HomeEl = $("#point-player1-home");
+  var checkersCount = GAME.player1Home.checkersCount();
+  for (var i = 0; i < checkersCount; i++) {
+    var element = generateSmallBrownChecker();
+    player1HomeEl.append(element);
+    console.log(element);
+    element[0].style.top = "10px";
+    element[0].style.left = 0;
+  }
+
+  var player2HomeEl = $("#point-player2-home");
+  var checkersCount = GAME.player2Home.checkersCount();
+  for (var i = 0; i < checkersCount; i++) {
+    var element = generateSmallWhiteChecker();
+    player2HomeEl.append(element);
+    console.log(element);
+    element[0].style.top = "10px";
+    element[0].style.left = 0;
+  }
 
   $(".checker").draggable({
     revert: "invalid",
@@ -307,6 +318,14 @@ function generateBrownChecker() {
 
 function generateWhiteChecker() {
   return $("<div>").addClass("checker checker-white pointer");
+}
+
+function generateSmallBrownChecker() {
+  return $("<div>").addClass("topdown-checker topdown-brown");
+}
+
+function generateSmallWhiteChecker() {
+  return $("<div>").addClass("topdown-checker topdown-white");
 }
 
 function getCheckerPosition(pointNr, checkerNr) {
