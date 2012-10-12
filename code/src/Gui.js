@@ -40,12 +40,15 @@ $(function() {
     return false;
   });
 
-  $('#undo').click(function() {
+  $("#undo").click(function() {
     GAME.undo();
     redrawCheckers();
   });
 
-  $('#submit').click(function() {
+  $("#submit").click(function() {
+    GAME.finishTurn();
+    redrawBasics();
+    redrawDices();
   });
 
   $('#send').click(function() {
@@ -87,7 +90,29 @@ function startNewGame() {
   showBrownDice(1, GAME.diceRoller.firstValue);
   showWhiteDice(1, GAME.diceRoller.secondValue);
 
+  redrawBasics();
   redrawCheckers();
+}
+
+function redrawBasics() {
+  $("#player1, #player2").removeClass("selected");
+
+  if (GAME.currentPlayer == PLAYER1) {
+    $("#player1").addClass("selected");
+  } else {
+    $("#player2").addClass("selected");
+  }
+}
+
+function redrawDices() {
+  $(".dice").hide();
+  if (GAME.currentPlayer == PLAYER1) {
+    showBrownDice(1, GAME.diceRoller.firstValue);
+    showBrownDice(2, GAME.diceRoller.secondValue);
+  } else {
+    showWhiteDice(1, GAME.diceRoller.firstValue);
+    showWhiteDice(2, GAME.diceRoller.secondValue);
+  }
 }
 
 function redrawCheckers() {
@@ -149,6 +174,7 @@ function getPointUsingDomId(domId) {
 function showWhiteDice(nr, value) {
   var dice = $("#whiteDiceNr" + nr);
   dice.parent().show();
+  dice.show();
   animateDice(dice, whiteDiceNrs, value);
 }
 
@@ -157,6 +183,7 @@ function showWhiteDice(nr, value) {
 function showBrownDice(nr, value) {
   var dice = $("#brownDiceNr" + nr);
   dice.parent().show();
+  dice.show();
   animateDice(dice, brownDiceNrs, value);
 }
 
