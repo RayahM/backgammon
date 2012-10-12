@@ -128,10 +128,16 @@ Game.prototype.finishTurn = function() {
 Game.prototype.undo = function() {
   var lastMovement = this.history[this.history.length - 1];
   if (lastMovement && lastMovement.player == this.currentPlayer) {
+    var sourcePoint = lastMovement.sourcePoint;
+    var targetPoint = lastMovement.targetPoint;
+
     this.history.splice(-1, 1);
 
-    var checker = lastMovement.targetPoint.popChecker();
-    lastMovement.sourcePoint.addChecker(checker);
+    var checker = targetPoint.popChecker();
+    sourcePoint.addChecker(checker);
+
+    var distance = this.getDistanceBetweenPoints(sourcePoint, targetPoint);
+    this.diceRoller.addValue(distance);
   }
 }
 

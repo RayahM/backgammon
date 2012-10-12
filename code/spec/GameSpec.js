@@ -347,6 +347,10 @@ describe("Game", function() {
       it("removes checker from target point", function() {
         expect(point(5).checkersCount()).toBe(0);
       });
+
+      it("adds dice value back to the diceRoller", function() {
+        expect(diceRoller.values[1]).toBe(3);
+      });
     });
 
     describe("when pressed twice", function() {

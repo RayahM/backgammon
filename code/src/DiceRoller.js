@@ -54,3 +54,7 @@ DiceRoller.prototype.indexOfValue = function(value) {
   }
   return -1;
 }
+
+DiceRoller.prototype.addValue = function(value) {
+  this.values.push(value);
+}
