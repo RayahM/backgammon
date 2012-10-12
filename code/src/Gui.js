@@ -28,7 +28,7 @@ $(function() {
       buttons : {
         "Start new game" : function() {
           $(this).dialog("close");
-          startUpWindow();
+          showStartUpWindow();
         },
         Resume : function() {
           $(this).dialog("close");
