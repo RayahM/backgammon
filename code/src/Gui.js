@@ -84,8 +84,8 @@ function startNewGame() {
 
   GAME.start();
 
-  showWhiteDice(GAME.diceRoller.firstValue);
-  showBrownDice(GAME.diceRoller.secondValue);
+  showBrownDice(GAME.diceRoller.firstValue);
+  showWhiteDice(GAME.diceRoller.secondValue);
 
   redrawCheckers();
 }
@@ -117,7 +117,19 @@ function redrawCheckers() {
   $(".checker").draggable({revert: "invalid"});
   $(".point").droppable({
     drop: function(event, ui) {
-      console.log("dropped");
+      var source = $(ui.draggable).parent();
+      var target = $(this);
+      console.log(target);
+
+      var sourcePoint = getPointUsingDomId(source.attr("id"));
+      var targetPoint = getPointUsingDomId(target.attr("id"));
+      console.log(sourcePoint);
+      console.log(targetPoint);
+
+      if (GAME.canMove(sourcePoint, targetPoint)) {
+        GAME.moveChecker(sourcePoint, targetPoint);
+      }
+      redrawCheckers();
     }
   });
 
@@ -125,6 +137,11 @@ function redrawCheckers() {
     $(".checker").removeClass("selected");
     $(this).addClass("selected");
   });
+}
+
+function getPointUsingDomId(domId) {
+  var id = domId.replace("point", "");
+  return GAME.getPoint(id);
 }
 
 // value - 1 to 6
@@ -147,24 +164,24 @@ function showBrownDice(value) {
 function animateDice(dice, numbers, value) {
   dice.removeClass().addClass("dice");
 
-  var currentNr = null;
   var lastClass = null;
   var count = 0;
   var nrGenerator = new DiceNumberGenerator();
 
-
   var showRandomNr = function() {
     var randomNr = nrGenerator.generate() - 1;
-    if(lastClass != numbers[randomNr]){
-	    dice.switchClass(lastClass, numbers[randomNr], 80, function() {
-	      if (count <= 8) {
-	        lastClass = numbers[randomNr];
-	        showRandomNr();
-	      } else {
-	        dice.switchClass(lastClass, numbers[value - 1]);
-	      }
-	    });
-  	}
+    dice.removeClass(lastClass);
+    dice.addClass(numbers[randomNr])
+
+    if (count <= 8) {
+      lastClass = numbers[randomNr];
+      setTimeout(function() {
+        showRandomNr();
+      }, 80);
+    } else {
+      dice.removeClass(lastClass);
+      dice.addClass(numbers[value - 1]);
+    }
     count++;
   }
 

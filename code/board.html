@@ -22,33 +22,6 @@
     <script type="text/javascript" src="src/DiceRoller.js"></script>
     <script type="text/javascript" src="src/DiceNumberGenerator.js"></script>
     <script type="text/javascript" src="src/Gui.js"></script>
-
-    <script type="text/javascript">
-      // Game example
-      var player1 = new Player("player1");
-      var player2 = new Player("player2");
-
-      var game = new Game(player1, player2);
-      game.start();
-
-      for (var i = 1; i < 25; i++) {
-        var point = game.getPoint(i);
-        // Map these with actual UI points
-      }
-
-      // Moving
-      // game.availableMoves(); [{from: point, to: point}, ...]
-      // game.canMove(game.getPoint(8), game.getPoint(6));
-      // game.moveChecker(game.getPoint(8), game.getPoint(6));
-      // game.finishTurn();
-
-      // Common methods
-      // game.currentPlayer
-      // game.player1Graveyard
-      // game.player2Graveyard
-      // game.player1Home
-      // game.player2Home
-    </script>
   </head>
 
   <body>
@@ -144,16 +117,17 @@
 
         <div class="topdown-checker topdown-asdwhite" style="top:38px;right:8px;"></div>
         <div class="topdown-checker topdown-brown" style="bottom:36px;right:8px;"></div>
-        <div id="player1">
-          <label id="player1Name">Player1</label>
-          <span class="white-small-checker"></span>
-          <span id="player1Moves">300</span>
-        </div>
 
         <div id="player2">
           <label id="player2Name">Player2</label>
           <span class="brown-small-checker"></span>
           <span id="player2Moves">300</span>
+        </div>
+
+        <div id="player1">
+          <label id="player1Name">Player1</label>
+          <span class="white-small-checker"></span>
+          <span id="player1Moves">300</span>
         </div>
       </div><!-- end of game board -->
 
