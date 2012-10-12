@@ -5,6 +5,7 @@ function Game(player1, player2) {
   this.diceRoller = new DiceRoller();
   this.createPoints();
   this.deadCheckers = [];
+  this.history = [];
 
   this.player1Graveyard = new Point(25);
   this.player2Graveyard = new Point(0);
@@ -25,9 +26,9 @@ Game.prototype.start = function() {
 
   this.diceRoller.rollUntilNotPair();
   if (this.diceRoller.firstValue > this.diceRoller.secondValue) {
-    this.setCurrenyPlayer(this.player1);
+    this.setCurrentPlayer(this.player1);
   } else {
-    this.setCurrenyPlayer(this.player2);
+    this.setCurrentPlayer(this.player2);
   }
 
   this.markStarted();
@@ -110,12 +111,27 @@ Game.prototype.moveChecker = function(sourcePoint, targetPoint) {
 
   var distance = this.getDistanceBetweenPoints(sourcePoint, targetPoint);
 
+  this.history.push({
+    sourcePoint: sourcePoint,
+    targetPoint: targetPoint,
+    player: this.currentPlayer
+  })
   this.diceRoller.useValue(distance);
 }
 
 Game.prototype.finishTurn = function() {
   if (this.diceRoller.valuesLeft() == 0) {
     this.switchPlayer();
+  }
+}
+
+Game.prototype.undo = function() {
+  var lastMovement = this.history[this.history.length - 1];
+  if (lastMovement && lastMovement.player == this.currentPlayer) {
+    this.history.splice(-1, 1);
+
+    var checker = lastMovement.targetPoint.popChecker();
+    lastMovement.sourcePoint.addChecker(checker);
   }
 }
 
@@ -155,7 +171,7 @@ Game.prototype.markStarted = function() {
   this.isStarted = true;
 }
 
-Game.prototype.setCurrenyPlayer = function(player) {
+Game.prototype.setCurrentPlayer = function(player) {
   this.currentPlayer = player;
 }
 

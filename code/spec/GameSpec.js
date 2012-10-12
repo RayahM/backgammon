@@ -114,7 +114,7 @@ describe("Game", function() {
       diceRoller.hasValue = function(value) { return true };
 
       game.markStarted();
-      game.setCurrenyPlayer(player1);
+      game.setCurrentPlayer(player1);
       game.diceRoller = diceRoller;
     });
 
@@ -206,7 +206,7 @@ describe("Game", function() {
       diceRoller.numberGenerator = numberGenerator;
 
       game.markStarted();
-      game.setCurrenyPlayer(player1);
+      game.setCurrentPlayer(player1);
       game.diceRoller = diceRoller;
     });
 
@@ -269,7 +269,7 @@ describe("Game", function() {
       diceRoller.roll();
 
       game.markStarted();
-      game.setCurrenyPlayer(player1);
+      game.setCurrentPlayer(player1);
       game.diceRoller = diceRoller;
       game.putCheckers(2, player1, 8);
     });
@@ -300,7 +300,7 @@ describe("Game", function() {
     beforeEach(function() {
       diceRoller = game.diceRoller;
 
-      game.setCurrenyPlayer(player1);
+      game.setCurrentPlayer(player1);
     });
 
     it("changes player when no moves left", function() {
@@ -315,6 +315,63 @@ describe("Game", function() {
       game.finishTurn();
 
       expect(game.currentPlayer).toBe(player1);
+    });
+  });
+
+  describe("#undo", function() {
+    var diceRoller;
+
+    beforeEach(function() {
+      diceRoller = new DiceRoller();
+      diceRoller.hasValue = function(value) { return true };
+      diceRoller.roll();
+
+      game.markStarted();
+      game.setCurrentPlayer(player1);
+      game.diceRoller = diceRoller;
+
+      game.putCheckers(2, player1, 8);
+      game.putCheckers(2, player1, 6);
+    });
+
+    describe("when pressed once", function() {
+      beforeEach(function() {
+        game.moveChecker(point(8), point(5));
+        game.undo();
+      });
+
+      it("add checker to original point", function() {
+        expect(point(8).checkersCount()).toBe(2);
+      });
+
+      it("removes checker from target point", function() {
+        expect(point(5).checkersCount()).toBe(0);
+      });
+    });
+
+    describe("when pressed twice", function() {
+      beforeEach(function() {
+        game.moveChecker(point(8), point(5));
+        game.moveChecker(point(8), point(4));
+        game.undo();
+        game.undo();
+      });
+
+      it("add checkers to original point", function() {
+        expect(point(8).checkersCount()).toBe(2);
+      });
+    });
+
+    describe("when trying to undo other player move", function() {
+      beforeEach(function() {
+        game.moveChecker(point(8), point(5));
+        game.setCurrentPlayer(player2);
+        game.undo();
+      });
+
+      it("does not change anything", function() {
+        expect(point(8).checkersCount()).toBe(1);
+      });
     });
   });
 });
