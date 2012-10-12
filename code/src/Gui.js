@@ -7,7 +7,7 @@ var brownDiceNrs = [
 
 var PLAYER1 = new Player("Player1");
 var PLAYER2 = new Player("Player2");
-var GAME = new Game();
+var GAME = new Game(PLAYER1, PLAYER2);
 
 $(function() {
   showStartUpWindow();
@@ -90,6 +90,24 @@ function startNewGame() {
 
   showWhiteDice(GAME.diceRoller.firstValue);
   showBrownDice(GAME.diceRoller.secondValue);
+
+  for (var i = 1; i < 25; i++) {
+    var point = GAME.getPoint(i);
+    var checkers = point.checkers;
+    for (var j = 0; j < checkers.length; j++) {
+      var checker = checkers[j];
+
+      console.log(checker);
+      if (checker.getPlayer() == PLAYER1) {
+        var element = generateWhiteChecker();
+      } else {
+        var element = generateBrownChecker();
+      }
+
+      console.log(element);
+      $("#point" + i).append(element);
+    }
+  }
 }
 
 // value - 1 to 6
@@ -140,17 +158,10 @@ function consoleAddMessage(message) {
   });
 }
 
-function removeStartingDice() {
-  $("#whiteDiceNr1Container").remove();
-  $("#brownDiceNr1Container").remove();
+function generateBrownChecker() {
+  return $("<div>").addClass("brown-small-checker")
 }
 
-function removeWhiteDice() {
-  $("#whiteDiceNr1Container").remove();
-  $("#whiteDiceNr2Container").remove();
-}
-
-function removeBrownDice() {
-  $("#brownDiceNr1Container").remove();
-  $("#brownDiceNr2Container").remove();
+function generateWhiteChecker() {
+  return $("<div>").addClass("white-small-checker")
 }
