@@ -46,9 +46,6 @@ $(function() {
   });
 
   $('#submit').click(function() {
-    alert('Submit.');
-    startGameRolling(5, 4);
-    //todo call the function from the back-end, give the turn right over
   });
 
   $('#send').click(function() {
@@ -90,30 +87,32 @@ function startNewGame() {
   showWhiteDice(GAME.diceRoller.firstValue);
   showBrownDice(GAME.diceRoller.secondValue);
 
+  redrawCheckers();
+}
+
+function redrawCheckers() {
+  $(".checker").remove();
+
   for (var i = 1; i < 25; i++) {
     var point = GAME.getPoint(i);
     var checkers = point.checkers;
+
     for (var j = 0; j < checkers.length; j++) {
       var checker = checkers[j];
 
-      console.log(checker);
       if (checker.getPlayer() == PLAYER1) {
         var element = generateBrownChecker();
       } else {
         var element = generateWhiteChecker();
       }
 
-      console.log(element);
-      var position = getCheckerPosition(i);
+      var position = getCheckerPosition(i, j);
       $("#game-board").append(element);
 
       element[0].style.top = position.top;
       element[0].style.left = position.left;
     }
   }
-}
-
-function redrawCheckers() {
 }
 
 // value - 1 to 6
@@ -176,12 +175,13 @@ function generateWhiteChecker() {
   return $("<div>").addClass("checker checker-white pointer");
 }
 
-function getCheckerPosition(point){
-  var count = GAME.getCheckersCountOnPoint(point);
-  var top = parseInt($("#point" + point)[0].style.top);
-  var left = parseInt($("#point" + point)[0].style.left);
+function getCheckerPosition(pointNr, checkerNr) {
+  var count = GAME.getCheckersCountOnPoint(pointNr);
+  var top = parseInt($("#point" + pointNr)[0].style.top);
+  var left = parseInt($("#point" + pointNr)[0].style.left);
+
   return {
-    top:  top + count*50 + "px",
+    top:  top + checkerNr*50 + "px",
     left: left + "px"
   };
 }
