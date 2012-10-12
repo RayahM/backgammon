@@ -120,6 +120,14 @@ Game.prototype.moveChecker = function(sourcePoint, targetPoint) {
 }
 
 Game.prototype.finishTurn = function() {
+  if (this.player1Home.checkersCount() == 15) {
+    alert(this.player1.name + " WON");
+  }
+
+  if (this.player2Home.checkersCount() == 15) {
+    alert(this.player2.name + " WON");
+  }
+
   if (this.diceRoller.valuesLeft() == 0) {
     this.switchPlayer();
     this.diceRoller.roll();
