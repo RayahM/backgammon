@@ -41,9 +41,8 @@ $(function() {
   });
 
   $('#undo').click(function() {
-    removeStartingDice();
-
-    //todo call undo move from the back-end
+    GAME.undo();
+    redrawCheckers();
   });
 
   $('#submit').click(function() {
@@ -114,6 +113,9 @@ function startNewGame() {
   }
 }
 
+function redrawCheckers() {
+}
+
 // value - 1 to 6
 function showWhiteDice(value) {
   var dice = $("#whiteDiceNr1");
@@ -133,12 +135,12 @@ function showBrownDice(value) {
 // value - final value 1 to 6
 function animateDice(dice, numbers, value) {
   dice.removeClass().addClass("dice");
-  
+
   var currentNr = null;
   var lastClass = null;
   var count = 0;
   var nrGenerator = new DiceNumberGenerator();
-  
+
 
   var showRandomNr = function() {
     var randomNr = nrGenerator.generate() - 1;
@@ -154,7 +156,7 @@ function animateDice(dice, numbers, value) {
   	}
     count++;
   }
-  
+
   showRandomNr();
 }
 
