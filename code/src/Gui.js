@@ -140,15 +140,34 @@ function redrawCheckers() {
     }
   }
 
-  // TODO: player1 home, graveyard, player2 home, graveyard
-  var player1HomeEl = $("#point-player1-home");
-  var checkers = GAME.player1Home.checkers;
-  for (var i = 0; i < checkers.count; i++) {
+  var player1GraveyardEl = $("#point-player1-graveyard");
+  var checkersCount = GAME.player1Graveyard.checkersCount();
+  for (var i = 0; i < checkersCount; i++) {
     var element = generateBrownChecker();
-    player1HomeEl.append(element);
+    player1GraveyardEl.append(element);
+    console.log(element);
     element[0].style.top = "10px";
     element[0].style.left = 0;
   }
+
+  var player2GraveyardEl = $("#point-player2-graveyard");
+  var checkersCount = GAME.player2Graveyard.checkersCount();
+  for (var i = 0; i < checkersCount; i++) {
+    var element = generateWhiteChecker();
+    player2GraveyardEl.append(element);
+    console.log(element);
+    element[0].style.top = "10px";
+    element[0].style.left = 0;
+  }
+
+  //var player1HomeEl = $("#point-player1-home");
+  //var checkers = GAME.player1Home.checkers;
+  //for (var i = 0; i < checkers.count; i++) {
+  //  var element = generateBrownChecker();
+  //  player1HomeEl.append(element);
+  //  element[0].style.top = "10px";
+  //  element[0].style.left = 0;
+  //}
 
   $(".checker").draggable({
     revert: "invalid",
