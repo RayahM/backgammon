@@ -102,6 +102,7 @@ function redrawBasics() {
   } else {
     $("#player2").addClass("selected");
   }
+  consoleAddMessage(GAME.currentPlayer.name+"'s turn");
 }
 
 function redrawDices() {

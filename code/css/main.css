@@ -398,7 +398,7 @@ textarea {
     right: 18px;
 }
 #player1.selected, #player2.selected {
-  background-color: red;
+  background-color: #817535;
 }
 
 .white-small-checker {
