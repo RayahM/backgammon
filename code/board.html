@@ -14,14 +14,14 @@
     <script src="lib/modernizr-2.6.1.min.js"></script>
     <script src="lib/plugins.js"></script>
 
-	  <!-- include source files here... -->
-	  <script type="text/javascript" src="src/Game.js"></script>
-	  <script type="text/javascript" src="src/Player.js"></script>
-	  <script type="text/javascript" src="src/Point.js"></script>
-	  <script type="text/javascript" src="src/Checker.js"></script>
-	  <script type="text/javascript" src="src/DiceRoller.js"></script>
-	  <script type="text/javascript" src="src/DiceNumberGenerator.js"></script>
-	  <script type="text/javascript" src="src/Gui.js"></script>
+    <!-- include source files here... -->
+    <script type="text/javascript" src="src/Game.js"></script>
+    <script type="text/javascript" src="src/Player.js"></script>
+    <script type="text/javascript" src="src/Point.js"></script>
+    <script type="text/javascript" src="src/Checker.js"></script>
+    <script type="text/javascript" src="src/DiceRoller.js"></script>
+    <script type="text/javascript" src="src/DiceNumberGenerator.js"></script>
+    <script type="text/javascript" src="src/Gui.js"></script>
 
     <script type="text/javascript">
       // Game example
@@ -53,169 +53,145 @@
 
   <body>
     <div id="gui">
-	    <div id="game-board">
-	    	<div class="checker checker-white pointer"></div>
+      <div id="game-board">
+        <div class="checker checker-white pointer"></div>
 
-	    	<div class="checker checker-brown pointer" style="left: 100px;"></div>
+        <div class="checker checker-brown pointer" style="left: 100px;"></div>
 
- 	    	<div id="whiteDiceNr1Container" class="dice dice-white hidden">
- 	    		<div id="whiteDiceNr1" class="number white-one"></div>
- 	    	</div>
- 	    	<div id="whiteDiceNr2Container" class="dice dice-white hidden">
- 	    		<div id="whiteDiceNr2" class="number white-one"></div>
- 	    	</div>
+        <div id="whiteDiceNr1Container" class="dice dice-white hidden">
+          <div id="whiteDiceNr1" class="number white-one"></div>
+        </div>
+        <div id="whiteDiceNr2Container" class="dice dice-white hidden">
+          <div id="whiteDiceNr2" class="number white-one"></div>
+        </div>
 
- 	    	<div id="brownDiceNr1Container" class="dice dice-brown hidden">
- 	    		<div id="brownDiceNr1" class="number brown-three"></div>
- 	    	</div>
- 	    	<div id="brownDiceNr2Container" class="dice dice-brown hidden">
- 	    		<div id="brownDiceNr2" class="number brown-three"></div>
- 	    	</div>
- 	    	
+        <div id="brownDiceNr1Container" class="dice dice-brown hidden">
+          <div id="brownDiceNr1" class="number brown-three"></div>
+        </div>
+        <div id="brownDiceNr2Container" class="dice dice-brown hidden">
+          <div id="brownDiceNr2" class="number brown-three"></div>
+        </div>
+
         <div id="point1" class="point" style="top:325px;left:727px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point2" class="point" style="top:325px;left:672px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point3" class="point" style="top:325px;left:617px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point4" class="point" style="top:325px;left:562px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point5" class="point" style="top:325px;left:507px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point6" class="point" style="top:325px;left:452px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point7" class="point" style="top:325px;left:342px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point8" class="point" style="top:325px;left:287px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point9" class="point" style="top:325px;left:232px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point10" class="point" style="top:325px;left:177px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point11" class="point" style="top:325px;left:122px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point12" class="point" style="top:325px;left:67px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point13" class="point" style="top:39px;left:67px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point14" class="point" style="top:39px;left:122px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point15" class="point" style="top:39px;left:177px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point16" class="point" style="top:39px;left:232px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point17" class="point" style="top:39px;left:287px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point18" class="point" style="top:39px;left:342px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point19" class="point" style="top:39px;left:452px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point20" class="point" style="top:39px;left:507px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point21" class="point" style="top:39px;left:562px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point22" class="point" style="top:39px;left:617px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point23" class="point" style="top:39px;left:672px;">
-          <ul>
-          </ul>
+          <ul></ul>
         </div>
         <div id="point24" class="point" style="top:39px;left:727px;">
-          <ul id="random">
-          </ul>
+          <ul id="random"></ul>
         </div>
 
-	    	<div class="topdown-checker topdown-asdwhite" style="top:38px;right:8px;"></div>
-	    	<div class="topdown-checker topdown-brown" style="bottom:36px;right:8px;"></div>
-	    	<div id="player1">
+        <div class="topdown-checker topdown-asdwhite" style="top:38px;right:8px;"></div>
+        <div class="topdown-checker topdown-brown" style="bottom:36px;right:8px;"></div>
+        <div id="player1">
           <label id="player1Name">Player1</label>
           <span class="white-small-checker"></span>
           <span id="player1Moves">300</span>
-	    	</div>
+        </div>
 
-	    	<div id="player2">
+        <div id="player2">
           <label id="player2Name">Player2</label>
           <span class="brown-small-checker"></span>
           <span id="player2Moves">300</span>
-	    	</div>
-	    </div><!-- end of game board -->
+        </div>
+      </div><!-- end of game board -->
 
-	    <div id="menu" class="small_button pointer" style="right:5px;top:5px;">Menu</div>
-	    <div class="button pointer" style="right:5px;top:189px;">
-	    	<div id="undo" class="undo">Undo</div>
-	    </div>
-	    <div class="button pointer" style="right:5px;top:303px;">
-	    	<div id="submit" class="submit">Submit</div>
-	    </div>
-	    <div class="button pointer" style="right:5px;bottom:0px;">
-	    	<div id="send" class="send">Send</div>
-	    </div>
-	    <div id="chat">
-	    	<div id="log">
-	    	</div>
-	    	<input type="text" id="chat_input"/>
-	    </div>
+      <div id="menu" class="small_button pointer" style="right:5px;top:5px;">Menu</div>
+      <div class="button pointer" style="right:5px;top:189px;">
+        <div id="undo" class="undo">Undo</div>
+      </div>
+      <div class="button pointer" style="right:5px;top:303px;">
+        <div id="submit" class="submit">Submit</div>
+      </div>
+      <div class="button pointer" style="right:5px;bottom:0px;">
+        <div id="send" class="send">Send</div>
+      </div>
+      <div id="chat">
+        <div id="log">
+        </div>
+        <input type="text" id="chat_input"/>
+      </div>
     </div><!-- end of gui -->
 
     <div id="menuDialog" title="Menu dialog"></div>
 
     <div id="dialog-modal" title="Backgammon" style="display:none;">
-		<form>
-	    	<fieldset>
-		        <label for="player1">Player 1</label>
-		        <br/>
-		        <input type="text" name="player1" id="player1Input" value="Player1" class="text ui-widget-content ui-corner-all" />
-		        <br/>
-		        <label for="player2">Player 2</label>
-		        <br/>
-		        <input type="text" name="player2" id="player2Input" value="Player2" class="text ui-widget-content ui-corner-all" />
-		        <br/>
-	    	</fieldset>
-    	</form>
-	</div>
+    <form>
+      <fieldset>
+        <label for="player1">Player 1</label>
+        <br/>
+        <input type="text" name="player1" id="player1Input" value="Player1" class="text ui-widget-content ui-corner-all" />
+        <br/>
+        <label for="player2">Player 2</label>
+        <br/>
+        <input type="text" name="player2" id="player2Input" value="Player2" class="text ui-widget-content ui-corner-all" />
+        <br/>
+      </fieldset>
+    </form>
+  </div>
   </body>
 </html>
