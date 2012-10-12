@@ -139,10 +139,20 @@ function redrawCheckers() {
     }
   }
 
+  // TODO: player1 home, graveyard, player2 home, graveyard
+  var player1HomeEl = $("#point-player1-home");
+  var checkers = GAME.player1Home.checkers;
+  for (var i = 0; i < checkers.count; i++) {
+    var element = generateBrownChecker();
+    player1HomeEl.append(element);
+    element[0].style.top = "10px";
+    element[0].style.left = 0;
+  }
+
   $(".checker").draggable({
     revert: "invalid",
     start: function() {
-      // siia funktsiooni sisu      
+      // siia funktsiooni sisu
       var source = $(this).parent();
       var sourcePoint = getPointUsingDomId(source.attr("id"));
       var moves = GAME.availableMoves();
@@ -173,12 +183,9 @@ function redrawCheckers() {
     drop: function(event, ui) {
       var source = $(ui.draggable).parent();
       var target = $(this);
-      console.log(target);
 
       var sourcePoint = getPointUsingDomId(source.attr("id"));
       var targetPoint = getPointUsingDomId(target.attr("id"));
-      console.log(sourcePoint);
-      console.log(targetPoint);
 
       if (GAME.canMove(sourcePoint, targetPoint)) {
         GAME.moveChecker(sourcePoint, targetPoint);
@@ -195,7 +202,17 @@ function redrawCheckers() {
 
 function getPointUsingDomId(domId) {
   var id = domId.replace("point", "");
-  return GAME.getPoint(id);
+  if (id == "player1-graveyard") {
+    return GAME.player1Graveyard;
+  } else if (id == "player1-home") {
+    return GAME.player1Home;
+  } else if (id == "player2-graveyard") {
+    return GAME.player2Graveyard;
+  } else if (id == "player2-home") {
+    return GAME.player2Home;
+  } else {
+    return GAME.getPoint(id);
+  }
 }
 
 // nr - dice number 1 to 2
