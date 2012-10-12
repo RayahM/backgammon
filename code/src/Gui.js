@@ -156,6 +156,10 @@ function redrawCheckers() {
       // siia funktsiooni sisu
       var source = $(this).parent();
       var sourcePoint = getPointUsingDomId(source.attr("id"));
+      var checker = GAME.getPoint(sourcePoint.position).checkers[0];
+      if(checker.player != GAME.currentPlayer){
+        return false;
+      }
       var moves = GAME.availableMoves();
       for (var m in moves) {
         var move = moves[m];
@@ -196,6 +200,12 @@ function redrawCheckers() {
   });
 
   $(".checker").on("click", function() {
+    var source = $(this).parent();
+    var sourcePoint = getPointUsingDomId(source.attr("id"));
+    var checker = GAME.getPoint(sourcePoint.position).checkers[0];
+    if(checker.player != GAME.currentPlayer){
+      return false;
+    }
     $(".checker").removeClass("selected");
     $(this).addClass("selected");
   });
