@@ -86,13 +86,10 @@ function startUpWindow(){
                 }else{
                 	var player2 = "Player2";
                 }
-                alert(player1+":"+player2);
-                
-                
-                
+                   
                 //todo start new game; call out the method
-                               
-                
+                $('#player1Name').text(player1);
+                $('#player2Name').text(player2);                
             }
         }
     });
