@@ -175,7 +175,7 @@ function redrawCheckers() {
       // siia funktsiooni sisu
       var source = $(this).parent();
       var sourcePoint = getPointUsingDomId(source.attr("id"));
-      var checker = GAME.getPoint(sourcePoint.position).checkers[0];
+      var checker = sourcePoint.checkers[0];
       if(checker.player != GAME.currentPlayer){
         return false;
       }
@@ -221,7 +221,7 @@ function redrawCheckers() {
   $(".checker").on("click", function() {
     var source = $(this).parent();
     var sourcePoint = getPointUsingDomId(source.attr("id"));
-    var checker = GAME.getPoint(sourcePoint.position).checkers[0];
+    var checker = sourcePoint.checkers[0];
     if(checker.player != GAME.currentPlayer){
       return false;
     }
@@ -232,13 +232,13 @@ function redrawCheckers() {
 
 function getPointUsingDomId(domId) {
   var id = domId.replace("point", "");
-  if (id == "player1-graveyard") {
+  if (id == "-player1-graveyard") {
     return GAME.player1Graveyard;
-  } else if (id == "player1-home") {
+  } else if (id == "-player1-home") {
     return GAME.player1Home;
-  } else if (id == "player2-graveyard") {
+  } else if (id == "-player2-graveyard") {
     return GAME.player2Graveyard;
-  } else if (id == "player2-home") {
+  } else if (id == "-player2-home") {
     return GAME.player2Home;
   } else {
     return GAME.getPoint(id);
