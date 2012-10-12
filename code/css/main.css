@@ -133,6 +133,12 @@ textarea {
 	left:240px;
 }
 
+.point {
+  position: absolute;
+  height: 230px;
+  width: 50px;
+}
+
 .checker {
     position: absolute;
     width: 50px;

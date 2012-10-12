@@ -114,6 +114,13 @@ function redrawCheckers() {
     }
   }
 
+  $(".checker").draggable({revert: "invalid"});
+  $(".point").droppable({
+    drop: function(event, ui) {
+      console.log("dropped");
+    }
+  });
+
   $(".checker").on("click", function() {
     $(".checker").removeClass("selected");
     $(this).addClass("selected");
@@ -182,11 +189,9 @@ function generateWhiteChecker() {
 
 function getCheckerPosition(pointNr, checkerNr) {
   var count = GAME.getCheckersCountOnPoint(pointNr);
-  var top = parseInt($("#point" + pointNr)[0].style.top);
-  var left = parseInt($("#point" + pointNr)[0].style.left);
 
   return {
-    top:  top + checkerNr*50 + "px",
-    left: left + "px"
+    top:  checkerNr*50 + "px",
+    left: "0px"
   };
 }
