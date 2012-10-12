@@ -432,8 +432,7 @@ textarea {
  */
 
 .hidden {
-    display: none !important;
-    visibility: hidden;
+    display: none;
 }
 
 /*
